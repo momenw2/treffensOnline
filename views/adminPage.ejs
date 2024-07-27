@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/adminPageStyle.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <%- include('partials/header.ejs') -%>
+
+    <div class="searchContainer">
+      <input
+        type="text"
+        id="searchBar"
+        placeholder="Search by phone number..."
+      />
+    </div>
+
+    <div class="mainContainer">
+      <!-- Order cards will be dynamically inserted here -->
+    </div>
+
+    <script>
+      const mainContainer = document.querySelector(".mainContainer");
+      const searchBar = document.getElementById("searchBar");
+
+      function fetchOrders(phoneNumber = "") {
+        let url = "http://localhost:3000/orderBCK";
+        if (phoneNumber) {
+          url += `?phoneNumber=${phoneNumber}`;
+        }
+
+        fetch(url)
+          .then((res) => res.json())
+          .then((data) => {
+            mainContainer.innerHTML = ""; // Clear existing orders
+            data.forEach((order) => {
+              mainContainer.innerHTML += `<a href="/AdminOD?id=${order._id}">
+              <div class="orderBox">
+                <p>${order.name}</p>
+                <p>${order.email}</p>
+                <p>${order.city}</p>
+                <p>${order.phoneNumber}</p>
+                <p>${order.orderProgress}</p>
+              </div>
+            </a>`;
+            });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      searchBar.addEventListener("input", () => {
+        const phoneNumber = searchBar.value;
+        fetchOrders(phoneNumber);
+      });
+
+      // Fetch all orders on page load
+      fetchOrders();
+    </script>
+  </body>
+</html>

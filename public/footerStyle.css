@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  color: whitesmoke;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 50px;
+}
+
+.footerLogo img {
+  height: 120px;
+  width: auto;
+}
+
+.footerLinks ul {
+  list-style: none;
+}
+
+.footerLinks ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+.footerLinks ul li a:hover {
+  text-decoration: none;
+  color: rgb(99, 21, 216);
+}
+
+.footerLinks ul li {
+  margin-bottom: 10px;
+}
+
+.footerContactUsBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.socialMedia {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.socialMedia a {
+  padding: 0 10px;
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+}
+
+.socialMedia a:hover {
+  color: rgb(99, 21, 216);
+}
+
+.contactUs {
+  color: rgb(133, 132, 132);
+}
+
+/* Media Query for responsive design */
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footerLogo,
+  .footerLinks,
+  .footerContactUsBox {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .footerLinks ul {
+    padding: 0;
+  }
+}

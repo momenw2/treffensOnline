@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/adminOrderDetailsStyle.css" />
+    <title>Order Details</title>
+  </head>
+  <body>
+    <%- include('partials/header.ejs') -%>
+
+    <div class="orderDetails">
+      <!-- Order details will be dynamically inserted here -->
+    </div>
+
+    <script>
+      // Function to get the URL parameter
+      function getUrlParameter(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+        var results = regex.exec(location.search);
+        return results === null
+          ? ""
+          : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+
+      const orderId = getUrlParameter("id");
+      const orderDetailsContainer = document.querySelector(".orderDetails");
+
+      function updateOrderProgress(newProgress) {
+        fetch(`http://localhost:3000/orderBCK/${orderId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ orderProgress: newProgress }),
+        })
+          .then((response) => response.json())
+          .then((updatedOrder) => {
+            document.getElementById("orderProgressValue").textContent =
+              updatedOrder.orderProgress;
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      fetch(`http://localhost:3000/orderBCK/${orderId}`)
+        .then((res) => res.json())
+        .then((order) => {
+          const orderHtml = `
+            <h2>User Info</h2>
+            <p><strong>Name:</strong> ${order.name}</p>
+            <p><strong>Email:</strong> ${order.email}</p>
+            <p><strong>City:</strong> ${order.city}</p>
+            <p><strong>Address:</strong> ${order.address}</p>
+            <p><strong>Phone Number:</strong> ${order.phoneNumber}</p>
+            <h3>Items:</h3>
+            <ul>
+              ${order.items
+                .map(
+                  (item) => `
+                <li>
+                  <p><strong>Item Name:</strong> ${item.itemName}</p>
+                  <p><strong>Item Size:</strong> ${item.itemSize}</p>
+                  <p><strong>Item Quantity:</strong> ${item.itemQuantity}</p>
+                  <p><strong>Item Price:</strong> ${item.itemPrice}</p>
+                </li>
+              `
+                )
+                .join("")}
+            </ul>
+            <p><strong>Total Order Price:</strong> ${order.totalOrderPrice}</p>
+            <p><strong>Order Progress:</strong> <span id="orderProgressValue">${
+              order.orderProgress
+            }</span></p>
+            <label class="changetxt" for="orderProgress">Change Order Progress:</label>
+            <select id="orderProgress" onchange="updateOrderProgress(this.value)">
+              <option value="Pending" ${
+                order.orderProgress === "Pending" ? "selected" : ""
+              }>Pending</option>
+              <option value="Collecting" ${
+                order.orderProgress === "Collecting" ? "selected" : ""
+              }>Collecting</option>
+              <option value="Collected" ${
+                order.orderProgress === "Collected" ? "selected" : ""
+              }>Collected</option>
+              <option value="Delivered" ${
+                order.orderProgress === "Delivered" ? "selected" : ""
+              }>Delivered</option>
+              <option value="Done" ${
+                order.orderProgress === "Done" ? "selected" : ""
+              }>Done</option>
+            </select>
+          `;
+          orderDetailsContainer.innerHTML = orderHtml;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,311 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+/* General Reset and Basic Styles */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  background-color: black;
+  color: whitesmoke;
+}
+
+.headerContainer {
+  position: relative;
+  height: 100vh; /* Full viewport height */
+  width: 100%;
+  overflow: hidden; /* Ensure no overflow */
+}
+
+#myVideo {
+  position: absolute;
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  width: 100%; /* Full width of the container */
+  height: 100%; /* Full height of the container */
+  object-fit: cover; /* Cover the container while maintaining aspect ratio */
+  /* Remove border */
+}
+
+.headerTxt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  z-index: 1; /* On top of video */
+  width: 100%;
+}
+
+.headerTxt h1 {
+  font-size: 50px;
+}
+
+.mainColor {
+  color: #5d00ff;
+}
+
+/* Additional Styles */
+.contentFirstBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; /* Center items vertically */
+  padding: 0 70px;
+  margin-top: 30px;
+  gap: 20px; /* Add some space between text and image */
+}
+
+.firstBoxTxt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1; /* Allow the text to take available space */
+}
+
+.firstBoxTxt h2 {
+  color: #5d00ff;
+  font-size: 50px;
+}
+
+.firstBoxTxt p {
+  font-size: 30px;
+}
+
+.firstBoxTxt a {
+  text-decoration: none;
+  color: white;
+  background-color: #5d00ff;
+  width: 20%;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+}
+
+.firstBoxTxt a:hover {
+  background-color: #4100b3;
+}
+
+.firstBoxImg {
+  display: flex;
+  justify-content: center;
+  flex: 1; /* Allow the image to take available space */
+  margin-bottom: 40px;
+}
+
+.firstBoxImg img {
+  width: 50vh;
+  height: auto;
+  border-radius: 20px;
+}
+
+.contentSecondBox {
+  display: flex;
+  justify-content: center;
+  background-color: #4100b3;
+  height: auto;
+}
+
+.secondBoxTxt {
+  padding: 0 70px;
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+.secondBoxTxt h2 {
+  font-size: 60px;
+}
+
+.secondBoxTxt p {
+  margin-bottom: 50px;
+}
+
+.secondBoxTxt a {
+  text-decoration: none;
+  color: white;
+  background-color: #300082;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.secondBoxTxt a:hover {
+  background-color: #1f0055;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .contentFirstBox {
+    padding: 0 40px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .firstBoxTxt {
+    text-align: center;
+  }
+
+  .firstBoxTxt h2 {
+    font-size: 40px;
+  }
+
+  .firstBoxTxt p {
+    font-size: 24px;
+  }
+
+  .firstBoxTxt a {
+    width: auto;
+    padding: 10px 20px;
+  }
+
+  .firstBoxImg img {
+    width: 40vh;
+  }
+
+  .secondBoxTxt h2 {
+    font-size: 50px;
+  }
+
+  .secondBoxTxt p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 992px) {
+  .headerTxt h1 {
+    font-size: 40px;
+  }
+
+  .contentFirstBox {
+    padding: 0 20px;
+    margin-top: 0;
+    background-image: url("images/home/firstDivImg.jpeg");
+    background-color: rgba(255, 255, 255, 0.6);
+    background-blend-mode: lighten;
+    /* opacity: 0.6; */
+    background-repeat: no-repeat;
+  }
+
+  .firstBoxTxt h2 {
+    font-size: 30px;
+  }
+
+  .firstBoxTxt p {
+    font-size: 20px;
+    color: black;
+  }
+
+  .firstBoxImg img {
+    width: 30vh;
+  }
+
+  .secondBoxTxt h2 {
+    font-size: 40px;
+  }
+
+  .secondBoxTxt p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerTxt h1 {
+    font-size: 30px;
+  }
+
+  .contentFirstBox {
+    /* padding: 0 20px; */
+    margin-top: 0;
+    background-image: url("images/home/firstDivImg.jpeg");
+    background-color: rgba(255, 255, 255, 0.6);
+    background-blend-mode: lighten;
+    /* opacity: 0.6; */
+    background-repeat: no-repeat;
+  }
+
+  .firstBoxTxt h2 {
+    font-size: 25px;
+  }
+
+  .firstBoxTxt p {
+    font-size: 18px;
+    color: black;
+  }
+
+  .firstBoxTxt a {
+    width: auto;
+    padding: 10px;
+  }
+
+  .firstBoxImg img {
+    width: 25vh;
+  }
+
+  .secondBoxTxt h2 {
+    font-size: 35px;
+  }
+
+  .secondBoxTxt p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .headerTxt h1 {
+    font-size: 24px;
+  }
+
+  .contentFirstBox {
+    margin-top: 0;
+    /* padding: 0 20px; */
+    background-image: url("images/home/firstDivImg.jpeg");
+    background-color: rgba(255, 255, 255, 0.6);
+    background-blend-mode: lighten;
+    /* opacity: 0.6; */
+    background-repeat: no-repeat;
+  }
+
+  .headerTxt h3 {
+    font-size: 18px;
+  }
+
+  .headerTxt p {
+    font-size: 16px;
+  }
+
+  .firstBoxTxt h2 {
+    font-size: 20px;
+  }
+
+  .firstBoxTxt p {
+    font-size: 16px;
+    color: black;
+  }
+
+  .firstBoxTxt a {
+    margin-bottom: 20px;
+  }
+
+  .firstBoxImg img {
+    width: 20vh;
+  }
+
+  .secondBoxTxt h2 {
+    font-size: 30px;
+  }
+
+  .secondBoxTxt p {
+    font-size: 12px;
+  }
+
+  .secondBoxTxt a {
+    padding: 10px;
+    font-size: 14px;
+  }
+}

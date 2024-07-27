@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #1a1a1a;
+}
+
+.container {
+  background-color: black;
+  min-height: 100vh; /* Ensure the body takes full height */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  margin: 0;
+  padding: 20px; /* Adjusted for better spacing */
+  width: 90%; /* Adjusted for responsiveness */
+  margin: 20px auto;
+}
+
+.shipping-container {
+  background-color: #1a1a1a;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  width: 100%; /* Adjusted for responsiveness */
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
+h1 {
+  color: whitesmoke;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+h2 {
+  color: whitesmoke;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+p,
+li {
+  color: #ccc;
+  margin-bottom: 20px;
+  text-align: left; /* Align text to the left */
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 40px;
+  text-align: left; /* Ensure list items are left-aligned */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .shipping-container {
+    width: 100%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .shipping-container {
+    width: 100%;
+    padding: 10px;
+  }
+}

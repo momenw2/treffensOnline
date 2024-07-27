@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Size Chart</title>
+    <link rel="stylesheet" href="sizeChartStyle.css" />
+  </head>
+  <body>
+    <%- include('partials/header.ejs') -%>
+
+    <div class="sizeChartcontainer">
+      <h1>Size Chart</h1>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Length</th>
+            <th>Width</th>
+            <th>Sleeves</th>
+            <th>Shoulders</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Size" class="sizeBox">XS</td>
+            <td data-label="Length">64</td>
+            <td data-label="Width">52</td>
+            <td data-label="Sleeves">22</td>
+            <td data-label="Shoulders">15</td>
+          </tr>
+          <tr>
+            <td data-label="Size" class="sizeBox">S</td>
+            <td data-label="Length">68</td>
+            <td data-label="Width">54</td>
+            <td data-label="Sleeves">23</td>
+            <td data-label="Shoulders">15.5</td>
+          </tr>
+          <tr>
+            <td data-label="Size" class="sizeBox">M</td>
+            <td data-label="Length">70</td>
+            <td data-label="Width">56</td>
+            <td data-label="Sleeves">24</td>
+            <td data-label="Shoulders">16</td>
+          </tr>
+          <tr>
+            <td data-label="Size" class="sizeBox">L</td>
+            <td data-label="Length">72</td>
+            <td data-label="Width">58</td>
+            <td data-label="Sleeves">24</td>
+            <td data-label="Shoulders">16.5</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note">All sizes are in centimeters</p>
+    </div>
+    <%- include('partials/footer.ejs') -%>
+  </body>
+</html>

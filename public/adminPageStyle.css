@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+html,
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  color: whitesmoke;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.mainContainer a {
+  text-decoration: none;
+  width: 80%;
+  cursor: pointer;
+  color: white;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.mainContainer a:hover {
+  color: rgb(144, 144, 144);
+}
+
+.orderBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 auto;
+  background-color: rgb(100, 100, 100);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+#searchBar {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 300px;
+}
+
+#searchButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+#searchButton:hover {
+  background-color: #218838;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .mainContainer a {
+    width: 70%;
+  }
+
+  .orderBox {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  #searchBar {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchContainer {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 10px; /* Add padding for spacing */
+  }
+
+  #searchBar {
+    width: 80%;
+    margin-bottom: 10px;
+  }
+
+  #searchButton {
+    width: 100%;
+  }
+
+  .mainContainer a {
+    width: 70%;
+  }
+
+  .orderBox {
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+}

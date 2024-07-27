@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/checkoutStyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <%- include('partials/header.ejs') -%>
+
+    <div class="mainContainer">
+      <div class="itemsContainer" id="itemsContainer">
+        <!-- Items will be dynamically inserted here -->
+      </div>
+
+      <div class="confirmButton" id="checkoutButton">
+        <a href="/confirmation">Checkout</a>
+      </div>
+    </div>
+
+    <script>
+      // Function to fetch items from local storage and display them
+      function displayCartItems() {
+        var itemsContainer = document.getElementById("itemsContainer");
+        var checkoutButton = document.getElementById("checkoutButton");
+        var cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+        if (cartItems.length === 0) {
+          itemsContainer.innerHTML = "<p>Your cart is empty</p>";
+          checkoutButton.style.display = "none";
+          return;
+        } else {
+          checkoutButton.style.display = "block";
+        }
+
+        itemsContainer.innerHTML = ""; // Clear the container before adding items
+
+        cartItems.forEach((item, index) => {
+          var itemBox = document.createElement("div");
+          itemBox.className = "itemBox";
+
+          // Ensure price and quantity are numbers
+          var price = parseFloat(item.price);
+          var quantity = parseInt(item.quantity, 10);
+
+          // Calculate the total price
+          var totalPrice = price * quantity;
+
+          itemBox.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" />
+            <h4>${item.name}</h4>
+            <p>${item.size}</p>
+            <div class="quantity-control">
+              <button onclick="updateQuantity(${index}, -1)">-</button>
+              <input type="number" value="${quantity}" readonly>
+              <button onclick="updateQuantity(${index}, 1)">+</button>
+            </div>
+            <p>${totalPrice.toFixed(2)} EGP</p>
+            <i class="fa fa-trash-o" onclick="deleteItem(${index})" style="font-size: 30px"></i>
+          `;
+          itemsContainer.appendChild(itemBox);
+        });
+      }
+
+      // Function to update the quantity of an item in the cart
+      function updateQuantity(index, change) {
+        var cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+        if (cartItems[index]) {
+          var newQuantity = parseInt(cartItems[index].quantity) + change;
+          if (newQuantity < 1) {
+            newQuantity = 1;
+          }
+          cartItems[index].quantity = newQuantity;
+          localStorage.setItem("cart", JSON.stringify(cartItems));
+          displayCartItems();
+        }
+      }
+
+      // Function to delete an item from the cart
+      function deleteItem(index) {
+        var cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+        if (cartItems[index]) {
+          cartItems.splice(index, 1);
+          localStorage.setItem("cart", JSON.stringify(cartItems));
+          displayCartItems();
+        }
+      }
+
+      // Call the function to display cart items on page load
+      displayCartItems();
+    </script>
+  </body>
+</html>

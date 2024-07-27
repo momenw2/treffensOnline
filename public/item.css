@@ -1,0 +1,282 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  color: whitesmoke;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.itemContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 70px;
+  justify-content: space-between;
+  box-sizing: border-box; /* Include padding in width calculations */
+}
+
+.itemImg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  max-width: 100%; /* Ensure it doesn't exceed the container width */
+  margin: 0 auto; /* Center align */
+}
+
+.imageshow-container {
+  position: relative;
+  width: 100%; /* Make container width 100% */
+  max-width: 500px; /* Optional: Limit max-width if desired */
+  margin: auto;
+  overflow: hidden; /* Hide overflowing content */
+}
+
+.imageshow-container img,
+.imageshow-container video {
+  width: 100%; /* Ensure media fits within container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.itemData {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding: 40px;
+  box-sizing: border-box; /* Include padding in width calculations */
+}
+
+.itemSizes {
+  display: flex;
+  flex-direction: row;
+}
+
+.itemSizes label {
+  display: inline-block;
+  cursor: pointer;
+  padding: 15px 15px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin-right: 10px;
+  margin-left: 30px;
+  user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 40px;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.itemSizes label:hover {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.itemSizes input[type="radio"] {
+  display: none;
+}
+
+.itemSizes input[type="radio"]:checked + label {
+  background-color: #5d00ff63;
+  /* border: 1px solid #5d00ff63; */
+  border: none;
+  color: #fff;
+}
+
+.addToCartBox {
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
+  width: 100%;
+}
+
+#addToCartBtn {
+  width: 60%;
+  height: 60px;
+  border-radius: 15px;
+}
+
+#addToCartBtn:hover {
+  background-color: #5d00ff63;
+  cursor: pointer;
+  color: white;
+  border: none;
+}
+
+/* CSS Slider container */
+.imageshow-container {
+  max-width: 100%; /* Adjust max-width for responsiveness */
+  position: relative;
+  margin: auto;
+  overflow: hidden; /* Hide overflow to prevent scrolling */
+}
+
+/* Hide the images by default  */
+.imageClass {
+  display: none;
+}
+
+/* Adding fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+.price {
+  margin-left: 10px;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Defining the dot styles */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+/* Setting a different style for hovering and active */
+.active,
+.dot:hover {
+  background-color: #717171;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: rgb(74, 74, 74);
+}
+
+.quantity-control button {
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.quantity-control button:hover {
+  color: rgb(176, 175, 175);
+}
+
+.quantity-control input {
+  width: 50px;
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  margin: 0 5px;
+  border: none;
+  background: none;
+}
+
+/* Hide spinners in Safari and WebKit browsers */
+input[type="number"] {
+  -moz-appearance: textfield; /* For Firefox */
+  -webkit-appearance: none; /* For Safari and Chrome */
+}
+
+/* Remove the spinner for specific input elements */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .itemContainer {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .itemImg {
+    width: 90%; /* Adjust width to 60% of the screen size */
+    max-width: 100%; /* Ensure it doesn't exceed the screen size */
+    margin: auto; /* Center align */
+    padding: 0 10px; /* Add some padding for better visual alignment */
+  }
+
+  .imageshow-container {
+    width: 90%; /* Make image container 60% of the screen width */
+    margin: auto; /* Center align */
+  }
+
+  .itemData {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .itemSizes {
+    flex-direction: column;
+  }
+
+  .itemSizes label {
+    margin: 10px 0;
+    width: auto;
+    text-align: center;
+  }
+
+  #addToCartBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .itemContainer {
+    padding: 10px;
+  }
+
+  .itemImg {
+    width: 90%; /* Adjust width to 60% of the screen size */
+    max-width: 100%; /* Ensure it doesn't exceed the screen size */
+    margin: auto; /* Center align */
+    padding: 0 10px; /* Add some padding for better visual alignment */
+  }
+
+  .imageshow-container {
+    width: 90%; /* Make image container 60% of the screen width */
+    margin: auto; /* Center align */
+  }
+
+  .itemData {
+    padding: 10px;
+  }
+
+  .itemSizes label {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .itemPrice h3,
+  .itemSizes h3 {
+    font-size: 18px;
+  }
+
+  #addToCartBtn {
+    height: 50px;
+  }
+}

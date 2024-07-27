@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="home.css" />
+    <title>Treffens - Home</title>
+  </head>
+  <body>
+    <%- include('partials/header.ejs') -%>
+
+    <div class="headerContainer">
+      <video autoplay muted loop id="myVideo">
+        <source src="images/home/headerVideo.mp4" type="video/mp4" />
+      </video>
+      <div class="headerTxt">
+        <h1><span class="mainColor">TREFFENS</span> - Redefining Streetwear</h1>
+        <h3>Welcome to the Ultimate Streetwear Experience</h3>
+        <p>Discover our latest collections</p>
+      </div>
+    </div>
+
+    <div class="contentFirstBox">
+      <div class="firstBoxTxt">
+        <h2>Unleash Your Style</h2>
+        <p>Bold Designs, Premium Quality, Unmatched Comfort</p>
+        <a href="/product">Shop Now</a>
+      </div>
+      <div class="firstBoxImg">
+        <img src="images/home/firstDivImg.jpeg" alt="" />
+      </div>
+    </div>
+
+    <div class="contentSecondBox">
+      <!-- <img src="images/home/secondDivImg.jpeg" alt=""> -->
+      <div class="secondBoxTxt">
+        <h2>Our Story</h2>
+        <p>
+          "At TREFFENS, we are redefining streetwear fashion. Our journey began
+          with a vision to create high-quality, comfortable, and stylish
+          clothing that resonates with street culture. Learn more about our
+          mission, our products, and our commitment to sustainability."
+        </p>
+        <a href="/About-Us">Learn More</a>
+      </div>
+    </div>
+
+    <%- include('partials/footer.ejs') -%>
+
+    <script></script>
+  </body>
+</html>

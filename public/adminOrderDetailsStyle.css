@@ -1,0 +1,146 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  color: whitesmoke;
+}
+
+.orderDetails {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+strong {
+  font-size: 20px;
+  color: rgb(86, 47, 214);
+}
+
+h2,
+h3 {
+  font-size: 30px;
+}
+
+/* Select styles to normalize appearance across browsers */
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20%;
+  height: 10%;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: rgb(46, 46, 46);
+  color: white;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="whitesmoke" d="M2 0L0 2h4zM2 5L0 3h4z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+.changetxt {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .orderDetails {
+    padding: 40px;
+  }
+
+  h2,
+  h3 {
+    font-size: 28px;
+  }
+
+  select {
+    width: 30%;
+  }
+}
+
+@media (max-width: 992px) {
+  .orderDetails {
+    padding: 50px;
+  }
+
+  h2,
+  h3 {
+    font-size: 26px;
+  }
+
+  select {
+    width: 40%;
+  }
+}
+
+@media (max-width: 768px) {
+  .orderDetails {
+    padding: 50px;
+  }
+
+  h2,
+  h3 {
+    font-size: 24px;
+  }
+
+  select {
+    width: 50%;
+  }
+}
+
+@media (max-width: 576px) {
+  .orderDetails {
+    padding: 50px;
+  }
+
+  h2,
+  h3 {
+    font-size: 22px;
+  }
+
+  select {
+    width: 60%;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .orderDetails {
+    padding: 50px;
+  }
+
+  h2,
+  h3 {
+    font-size: 20px;
+  }
+
+  select {
+    width: 70%;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .orderDetails {
+    padding: 50px;
+  }
+
+  h2,
+  h3 {
+    font-size: 18px;
+  }
+
+  select {
+    width: 80%;
+    font-size: 12px;
+  }
+}

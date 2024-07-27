@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/product.css" />
+    <title>Treffens - Products</title>
+  </head>
+  <body>
+    <%- include('partials/header.ejs') -%>
+
+    <div class="banner"></div>
+
+    <div class="productPageContainer">
+      <div class="categoryTitle"></div>
+      <div class="card-container"></div>
+    </div>
+
+    <%- include('partials/footer.ejs') -%>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const productPageContainer = document.querySelector(
+          ".productPageContainer"
+        );
+
+        async function fetchData() {
+          try {
+            const response = await fetch("/productBCK");
+            const data = await response.json();
+            renderData(data);
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        }
+
+        function renderData(data) {
+          data.forEach((category) => {
+            const categoryTitle = document.createElement("div");
+            categoryTitle.classList.add("categoryTitle");
+            categoryTitle.innerHTML = `<h2>${category.category}</h2>`;
+            productPageContainer.appendChild(categoryTitle);
+
+            const cardContainer = document.createElement("div");
+            cardContainer.classList.add("card-container");
+            productPageContainer.appendChild(cardContainer);
+
+            category.categoryData.forEach((item) => {
+              const itemElement = document.createElement("a");
+              const encodedCategory = encodeURIComponent(category.category);
+              const encodedItemName = encodeURIComponent(item.name);
+              itemElement.href = `/item?category=${encodedCategory}&name=${encodedItemName}`;
+              itemElement.innerHTML = `
+                <div class="container">
+                  <img src="${item.images[0]}" alt="">
+                  <div class="overlay">
+                    <div class="items"></div>
+                    <div class="items head">
+                      <p>${item.name}</p>
+                      <hr>
+                    </div>
+                    <div class="items price">
+                      <p class="old">${item.discount}</p>
+                      <p class="new">${item.price}</p>
+                    </div>
+                    <div class="items cart">
+                      <i class="fa fa-shopping-cart"></i>
+                      <span>ADD TO CART</span>
+                    </div>
+                  </div>
+                </div>`;
+              cardContainer.appendChild(itemElement);
+            });
+          });
+        }
+
+        fetchData();
+      });
+    </script>
+  </body>
+</html>

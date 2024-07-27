@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/header.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <div class="menu-btn">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="logo">
+        <a href="/"><img src="/Logo4.png" alt="Logo" /></a>
+      </div>
+      <div class="links">
+        <div class="pages">
+          <a href="/About-Us">ABOUT US</a>
+          <a href="/product">PRODUCTS</a>
+          <a href="/sizechart">SIZE CHART</a>
+        </div>
+      </div>
+      <div class="cartIconBox">
+        <a href="/checkout"><i class="fas fa-shopping-bag"></i></a>
+        <span class="cart-quantity" id="cartQuantityH">0</span>
+      </div>
+    </header>
+
+    <div class="mobile-menu">
+      <div class="close-btn">
+        <i class="fas fa-times"></i>
+      </div>
+      <div class="pages">
+        <a href="/About-Us">ABOUT US</a>
+        <a href="/product">PRODUCTS</a>
+        <a href="/sizechart">SIZE CHART</a>
+      </div>
+    </div>
+
+    <script>
+      // Function to update the cart quantity display
+      function updateCartQuantity() {
+        var cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Calculate total quantity
+        var totalQuantity = cartItems.reduce(function (total, item) {
+          return total + parseInt(item.quantity, 10);
+        }, 0);
+
+        // Update the cart quantity display
+        document.getElementById("cartQuantityH").textContent =
+          totalQuantity.toString();
+      }
+
+      // Call the function to update cart quantity on page load
+      updateCartQuantity();
+
+      // Add an event listener to update cart quantity when storage changes
+      window.addEventListener("storage", updateCartQuantity);
+
+      // Mobile menu functionality
+      const menuBtn = document.querySelector(".menu-btn");
+      const closeBtn = document.querySelector(".close-btn");
+      const mobileMenu = document.querySelector(".mobile-menu");
+
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.add("active");
+      });
+
+      closeBtn.addEventListener("click", () => {
+        mobileMenu.classList.remove("active");
+      });
+    </script>
+  </body>
+</html>
