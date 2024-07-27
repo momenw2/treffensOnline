@@ -9,12 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@supabase/supabase-js": "^2.44.4",
+    "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
+    "emailjs": "^4.0.3",
     "express": "^4.19.2",
     "mongodb": "^6.7.0",
     "mongoose": "^8.4.3",
     "node": "^20.16.0",
+    "nodemailer": "^6.9.14",
     "nodemon": "^3.1.3"
   }
 }

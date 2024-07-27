@@ -4,15 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/confirmationStyle.css" />
-    <title>Document</title>
-    <style></style>
+    <title>Order Confirmation</title>
+    <style>
+      .error {
+        border: 1px solid red;
+      }
+      #submitFeedback {
+        color: red;
+        margin-top: 10px;
+        text-align: center;
+      }
+    </style>
+    <!-- Include the EmailJS library -->
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+      (function () {
+        emailjs.init("YlTOaeMgmX3B8KIYa");
+      })();
+    </script>
   </head>
   <body>
     <%- include('partials/header.ejs') -%>
 
     <div class="mainContainer">
       <div class="dataContainer">
-        <form id="orderForm" action="#">
+        <form id="orderForm">
           <label for="name">Name</label>
           <input
             type="text"
@@ -51,13 +71,17 @@
 
           <label for="phone">Phone Number</label>
           <input
-            type="number"
+            type="tel"
             id="phone"
             name="phone"
             placeholder="Phone Number"
             required
           />
+
+          <input type="hidden" id="orderDetails" name="orderDetails" />
+          <input type="hidden" id="totalAmount" name="totalAmount" />
         </form>
+        <div id="submitFeedback"></div>
       </div>
       <div class="checkContainer">
         <div class="checkTitle">
@@ -78,48 +102,7 @@
           <a href="#" id="confirmOrderButton">Confirm Order</a>
         </div>
         <div class="checkoutTriangles">
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <div class="arrow-up"></div>
-          <!-- Additional arrow-up divs if necessary -->
+          <!-- Your existing triangle divs here -->
         </div>
       </div>
     </div>
@@ -136,7 +119,6 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        // Function to fetch cart items from local storage and display them
         function displayCheckoutItems() {
           var checkoutItemContainer = document.getElementById(
             "checkoutItemContainer"
@@ -144,6 +126,7 @@
           var totalContainer = document.getElementById("totalContainer");
           var cartItems = JSON.parse(localStorage.getItem("cart")) || [];
           var totalAmount = 0;
+          var orderDetails = "";
 
           if (cartItems.length === 0) {
             checkoutItemContainer.innerHTML = "<p>Your cart is empty</p>";
@@ -151,7 +134,7 @@
             return;
           }
 
-          checkoutItemContainer.innerHTML = ""; // Clear the container before adding items
+          checkoutItemContainer.innerHTML = "";
 
           cartItems.forEach((item) => {
             var price = parseFloat(item.price);
@@ -163,29 +146,63 @@
             checkoutItemBox.className = "checkoutItemBox";
 
             checkoutItemBox.innerHTML = `
-        <p>${item.name}</p>
-        <p>${item.size}</p>
-        <p>x${quantity}</p>
-        <p>${totalPrice.toFixed(2)} EGP</p>
-      `;
+              <p>${item.name}</p>
+              <p>${item.size}</p>
+              <p>x${quantity}</p>
+              <p>${totalPrice.toFixed(2)} EGP</p>
+            `;
             checkoutItemContainer.appendChild(checkoutItemBox);
+
+            orderDetails += `${item.name} (${
+              item.size
+            }) x${quantity} - ${totalPrice.toFixed(2)} EGP\n`;
           });
 
           totalContainer.innerHTML = `<h4>TOTAL: ${totalAmount.toFixed(
             2
           )} EGP</h4>`;
+
+          document.getElementById("orderDetails").value = orderDetails;
+          document.getElementById("totalAmount").value = totalAmount.toFixed(2);
         }
 
-        // Function to validate the form and confirm the order
-        function confirmOrder(event) {
-          event.preventDefault(); // Prevent default form submission
+        async function submitOrder(orderData) {
+          // Prepare a more detailed template params object
+          const templateParams = {
+            to_email: "treffens.co@gmail.com", // Replace with your email
+            from_name: orderData.name,
+            from_email: orderData.email,
+            subject: "New Order Submission",
+            message: `
+              Name: ${orderData.name}
+              Email: ${orderData.email}
+              City: ${orderData.city}
+              Address: ${orderData.address}
+              Phone: ${orderData.phone}
+              
+              Order Details:
+              ${orderData.orderDetails}
+              
+              Total Amount: ${orderData.totalAmount} EGP
+            `,
+          };
 
-          // Gather form data
+          // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your actual EmailJS service and template IDs
+          const response = await emailjs.send(
+            "service_b17y82q",
+            "template_of5a6ms",
+            templateParams
+          );
+          return response;
+        }
+
+        async function confirmOrder(event) {
+          event.preventDefault();
+
           var form = document.getElementById("orderForm");
           var isValid = true;
 
-          // Validate form inputs
-          form.querySelectorAll("input").forEach((input) => {
+          form.querySelectorAll("input[required]").forEach((input) => {
             if (!input.value) {
               input.classList.add("error");
               isValid = false;
@@ -198,71 +215,35 @@
             return;
           }
 
-          var formData = new FormData(form);
-          var orderData = {
-            name: formData.get("name"),
-            email: formData.get("email"),
-            city: formData.get("city"),
-            address: formData.get("address"),
-            phoneNumber: formData.get("phone"),
-            items: [],
-            totalOrderPrice: 0,
-            orderProgress: "Pending",
+          const orderData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            city: document.getElementById("city").value,
+            address: document.getElementById("address").value,
+            phone: document.getElementById("phone").value,
+            orderDetails: document.getElementById("orderDetails").value,
+            totalAmount: document.getElementById("totalAmount").value,
           };
 
-          // Fetch cart items from local storage
-          var cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-          var totalAmount = 0;
+          try {
+            await submitOrder(orderData);
+            // Show the popup
+            var popup = document.getElementById("popup");
+            popup.style.display = "block";
 
-          cartItems.forEach((item) => {
-            var price = parseFloat(item.price);
-            var quantity = parseInt(item.quantity, 10);
-            var totalPrice = price * quantity;
-            totalAmount += totalPrice;
-
-            orderData.items.push({
-              itemName: item.name,
-              itemSize: item.size,
-              itemQuantity: quantity,
-              itemPrice: totalPrice.toFixed(2),
-            });
-          });
-
-          orderData.totalOrderPrice = totalAmount.toFixed(2);
-
-          // Send order data to backend
-          fetch("http://localhost:3000/orderBCK", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(orderData),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("Order confirmed:", data);
-
-              // Show the custom popup
-              var popup = document.getElementById("popup");
-              popup.style.display = "block";
-
-              // Set up the close button to redirect to home page
-              document
-                .getElementById("closePopup")
-                .addEventListener("click", () => {
-                  popup.style.display = "none";
-                  window.location.href = "/"; // Redirect to the home page
-                });
-
-              // Optionally, clear cart and form
-              localStorage.removeItem("cart");
-              form.reset();
-              displayCheckoutItems(); // Update the checkout display
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-              alert("An error occurred. Please try again.");
-            });
+            // Set up the close button to redirect to home page
+            document
+              .getElementById("closePopup")
+              .addEventListener("click", () => {
+                popup.style.display = "none";
+                localStorage.removeItem("cart");
+                window.location.href = "/"; // Redirect to the home page
+              });
+          } catch (error) {
+            console.error("Error:", error);
+            document.getElementById("submitFeedback").innerText =
+              "There was an error submitting your order. Please try again or contact us directly.";
+          }
         }
 
         // Add event listener to confirm order button
