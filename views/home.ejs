@@ -10,7 +10,7 @@
     <%- include('partials/header.ejs') -%>
 
     <div class="headerContainer">
-      <video autoplay muted loop id="myVideo">
+      <video autoplay muted loop playsinline id="myVideo">
         <source src="images/home/headerVideo.mp4" type="video/mp4" />
       </video>
       <div class="headerTxt">
@@ -19,7 +19,6 @@
         <p>Discover our latest collections</p>
       </div>
     </div>
-
     <div class="contentFirstBox">
       <div class="firstBoxTxt">
         <h2>Unleash Your Style</h2>
@@ -44,9 +43,18 @@
         <a href="/About-Us">Learn More</a>
       </div>
     </div>
+    <!-- Rest of the HTML remains the same -->
 
     <%- include('partials/footer.ejs') -%>
 
-    <script></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var video = document.getElementById("myVideo");
+        video.play().catch(function (error) {
+          console.log("Auto-play was prevented");
+          // Show a play button or custom overlay here
+        });
+      });
+    </script>
   </body>
 </html>

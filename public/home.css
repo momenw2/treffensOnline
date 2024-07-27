@@ -30,6 +30,7 @@ body {
   object-fit: cover;
   border: none;
   outline: none;
+  -webkit-transform: translateZ(0);
 }
 
 video::-webkit-media-controls {
