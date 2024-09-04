@@ -9,7 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <title>Document</title>
+    <title>Checkout</title>
   </head>
   <body>
     <%- include('partials/header.ejs') -%>
@@ -52,8 +52,16 @@
           // Calculate the total price
           var totalPrice = price * quantity;
 
+          // Check if the image path is relative or absolute
+          var imageSrc =
+            item.image.startsWith("http") || item.image.startsWith("/")
+              ? item.image
+              : "/" + item.image;
+
           itemBox.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" />
+            <img src="${imageSrc}" alt="${
+            item.name
+          }" onerror="this.src='/placeholder.png';" />
             <h4>${item.name}</h4>
             <p>${item.size}</p>
             <div class="quantity-control">
