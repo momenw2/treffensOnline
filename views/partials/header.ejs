@@ -63,6 +63,21 @@
       // Add an event listener to update cart quantity when storage changes
       window.addEventListener("storage", updateCartQuantity);
 
+      // Create a custom event for cart updates
+      const cartUpdateEvent = new Event("cartUpdate");
+
+      // Override localStorage setItem method
+      const originalSetItem = localStorage.setItem;
+      localStorage.setItem = function (key, value) {
+        originalSetItem.apply(this, arguments);
+        if (key === "cart") {
+          window.dispatchEvent(cartUpdateEvent);
+        }
+      };
+
+      // Add event listener for cart updates
+      window.addEventListener("cartUpdate", updateCartQuantity);
+
       // Mobile menu functionality
       const menuBtn = document.querySelector(".menu-btn");
       const closeBtn = document.querySelector(".close-btn");
