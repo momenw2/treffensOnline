@@ -8,6 +8,23 @@
     <title>Treffens - Item Details</title>
     <style>
       /* ... (keep the existing styles) ... */
+      /* Optional: Add styles for the Sold Out button */
+      .sold-out-button {
+        background-color: gray;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: not-allowed;
+        font-size: 16px;
+      }
+      .quantity-control button {
+        padding: 5px 10px;
+        margin: 0 5px;
+      }
+      .quantity-control input {
+        width: 50px;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
@@ -36,7 +53,7 @@
           <h3>Price : <span id="item-price"></span></h3>
         </div>
         <div class="addToCartBox">
-          <button id="addToCartBtn" onclick="addToCart()">Add To Cart</button>
+          <!-- Add To Cart or Sold Out button will be dynamically inserted here -->
         </div>
       </div>
     </div>
@@ -48,7 +65,7 @@
         "Urban Crest V2.0": {
           name: "Urban Crest V2.0",
           image: "images/items/tshirts/v2/UrbanCrest/ProductImg.PNG",
-          price: { old: 700, new: 450 },
+          price: { old: 700, new: "Sold Out" },
           description:
             "Rise above the ordinary with the Summit Echo Tee from Treffens. This design captures the essence of peaks and the thrill of the climb, blending bold aesthetics with a touch of the wild. Perfect for those who aim high and never settle.",
           sizes: ["S", "M", "L", "XL"],
@@ -61,7 +78,7 @@
         "Graffiti Mile V2.0": {
           name: "Graffiti Mile V2.0",
           image: "images/items/tshirts/v2/GraffitiMile/ProductImg.PNG",
-          price: { old: 700, new: 450 },
+          price: { old: 700, new: "Sold Out" },
           description:
             "Step into the urban scene with the Graffiti Mile Tee from Treffens. Featuring bold graffiti-inspired lettering and the striking ‘5280’ detail, this design is a nod to street culture and the grit of the city. Perfect for those who wear their journey with pride and aren’t afraid to leave a mark.",
           sizes: ["S", "M", "L", "XL"],
@@ -74,7 +91,7 @@
         "Global Bound V2.0": {
           name: "Global Bound V2.0",
           image: "images/items/tshirts/v2/BlackBlueTshirt/ProductImg.PNG",
-          price: { old: 700, new: 450 },
+          price: { old: 700, new: "Sold Out" },
           description:
             "Embrace the edge with the Barbed Globe Tee from Treffens. Featuring a bold barbed wire motif encircling the Treffens name, this design symbolizes resilience and global ambition. Inspired by street culture, it’s perfect for those who break boundaries and make their mark from the streets of Cairo to the world.",
           sizes: ["S", "M", "L", "XL"],
@@ -87,7 +104,7 @@
         "Glow Up V1.0": {
           name: "Glow Up V1.0",
           image: "images/items/tshirts/glowUp/productImg.PNG",
-          price: { old: 700, new: 450 },
+          price: { old: 700, new: "Sold Out" },
           description:
             "Make a statement with this bold black T-shirt featuring a standout back design. The graphic includes a sleek, modern “glow up” text across the upper back, complemented by a large, edgy purple star with a vibrant glow effect at the bottom. Perfect for adding a touch of style and attitude to your casual wardrobe.",
           sizes: ["S", "M", "L", "XL"],
@@ -100,6 +117,7 @@
       };
 
       var firstImagePath = "";
+      var currentItem = null; // To keep track of the current item
 
       function getItemFromURL() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -109,6 +127,7 @@
 
       function displayItemData() {
         const item = getItemFromURL();
+        currentItem = item; // Set the current item
         if (!item) {
           console.error("Item not found");
           return;
@@ -117,9 +136,10 @@
         document.getElementById("item-name").textContent = item.name;
         document.getElementById("item-description").textContent =
           item.description;
-        document.getElementById(
-          "item-price"
-        ).textContent = `${item.price.new} EGP`;
+
+        const itemPriceElement = document.getElementById("item-price");
+        itemPriceElement.textContent =
+          item.price.new === "Sold Out" ? "Sold Out" : `${item.price.new} EGP`;
 
         // Display sizes
         const sizesContainer = document.getElementById("item-sizes");
@@ -139,7 +159,7 @@
 
         const images = item.images || [item.image];
         images.forEach((src, index) => {
-          const isVideo = src.endsWith(".MP4");
+          const isVideo = src.toLowerCase().endsWith(".mp4");
           imagesContainer.innerHTML += `
             <div class="slideClass fade">
               ${
@@ -159,6 +179,25 @@
 
         firstImagePath = images[0];
         currentSlide(1);
+
+        // Handle Add To Cart or Sold Out button
+        renderAddToCartButton();
+      }
+
+      function renderAddToCartButton() {
+        if (!currentItem) return;
+
+        const addToCartBox = document.querySelector(".addToCartBox");
+
+        if (currentItem.price.new === "Sold Out") {
+          addToCartBox.innerHTML = `
+            <button id="soldOutBtn" class="sold-out-button" disabled aria-disabled="true">Sold Out</button>
+          `;
+        } else {
+          addToCartBox.innerHTML = `
+            <button id="addToCartBtn" onclick="addToCart()">Add To Cart</button>
+          `;
+        }
       }
 
       function currentSlide(n) {
@@ -198,6 +237,11 @@
       }
 
       function addToCart() {
+        if (!currentItem || currentItem.price.new === "Sold Out") {
+          // Prevent adding to cart if sold out
+          return;
+        }
+
         var selectedSize = document.querySelector('input[name="size"]:checked');
         if (!selectedSize) {
           alert("Please select a size.");
@@ -235,8 +279,18 @@
       }
 
       function updateCartButton() {
+        if (!currentItem) return;
+
+        if (currentItem.price.new === "Sold Out") {
+          // If sold out, ensure the Sold Out button is displayed
+          renderAddToCartButton();
+          return;
+        }
+
         var selectedSize = document.querySelector('input[name="size"]:checked');
         if (!selectedSize) {
+          // If no size selected, show Add To Cart button
+          renderAddToCartButton();
           return;
         }
 
@@ -252,16 +306,16 @@
 
         if (existingItem) {
           addToCartBox.innerHTML = `
-          <div class="quantity-control">
-            <button onclick="decreaseQuantity()">-</button>
-            <input type="number" id="itemQuantity" name="quantity" min="1" value="${existingItem.quantity}" readonly>
-            <button onclick="increaseQuantity()">+</button>
-          </div>
-        `;
+            <div class="quantity-control">
+              <button onclick="decreaseQuantity()">-</button>
+              <input type="number" id="itemQuantity" name="quantity" min="1" value="${existingItem.quantity}" readonly>
+              <button onclick="increaseQuantity()">+</button>
+            </div>
+          `;
         } else {
           addToCartBox.innerHTML = `
-          <button id="addToCartBtn" onclick="addToCart()">Add To Cart</button>
-        `;
+            <button id="addToCartBtn" onclick="addToCart()">Add To Cart</button>
+          `;
         }
       }
 
@@ -284,6 +338,14 @@
       }
 
       function updateCart(quantity) {
+        if (!currentItem) return;
+
+        if (currentItem.price.new === "Sold Out") {
+          // If sold out, do not update the cart
+          renderAddToCartButton();
+          return;
+        }
+
         var selectedSize = document.querySelector(
           'input[name="size"]:checked'
         ).value;
@@ -302,7 +364,7 @@
       }
 
       // Display the item data when the page loads
-      displayItemData();
+      window.onload = displayItemData;
     </script>
   </body>
 </html>
