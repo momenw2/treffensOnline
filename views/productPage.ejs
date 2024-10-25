@@ -13,9 +13,18 @@
     <div class="banner"></div>
 
     <div class="productPageContainer">
+      <div class="categoryTitle"><h2>Hoodies</h2></div>
+      <div class="cardsMainContainer">
+        <div class="cardsRowContainer" id="hoodiesProductContainer">
+          <!-- Products will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <div class="productPageContainer">
       <div class="categoryTitle"><h2>T-shirt</h2></div>
       <div class="cardsMainContainer">
-        <div class="cardsRowContainer" id="productContainer">
+        <div class="cardsRowContainer" id="tshirtsProductContainer">
           <!-- Products will be dynamically inserted here -->
         </div>
       </div>
@@ -24,6 +33,36 @@
     <%- include('partials/footer.ejs') -%>
 
     <script>
+      const hoodies = {
+        "Silent Vision V3.0": {
+          name: "Silent Vision V3.0",
+          image: "images/items/hoodies/v3/1st/ProductImg.PNG",
+          price: { old: 1000, new: 750 },
+          // price: { old: 500, new: "Sold Out" },
+          description:
+            "Where the streets stay quiet, but your vision speaks loud. This black hoodie blends minimalism with bold street poetry, featuring Treffens’ signature globe logo on the front and graffiti-inspired text on the back. Made for those who walk unseen but leave a lasting impact.",
+          sizes: ["XS", "S", "M", "L", "XL"],
+        },
+        "Outside Authority V3.0": {
+          name: "Outside Authority V3.0",
+          image: "images/items/hoodies/v3/2nd/ProductImg.PNG",
+          price: { old: 1000, new: 750 },
+          // price: { old: 500, new: "Sold Out" },
+          description:
+            "We out here, and we run it. TRF on the chest, global takeover on the back—move loud, no holds barred.",
+          sizes: ["S", "M", "L", "XL"],
+        },
+        "Reality Check V3.0": {
+          name: "Reality Check V3.0",
+          image: "images/items/hoodies/v3/3rd/ProductImg.PNG",
+          price: { old: 1000, new: 750 },
+          // price: { old: 500, new: "Sold Out" },
+          description:
+            "Reality moves fast—either you’re in, or you’re out. Treffens globe on the front, bold statement on the back. No filters, no second chances—just raw truth.",
+          sizes: ["S", "M", "L", "XL"],
+        },
+      };
+
       const items = {
         "Urban Crest V2.0": {
           name: "Urban Crest V2.0",
@@ -68,7 +107,7 @@
       };
 
       function generateProductCards() {
-        const container = document.getElementById("productContainer");
+        const container = document.getElementById("tshirtsProductContainer");
         for (const [key, item] of Object.entries(items)) {
           const card = `
             <div class="card-container">
@@ -99,6 +138,39 @@
       }
 
       generateProductCards();
+
+      function generatehoodiesCards() {
+        const container = document.getElementById("hoodiesProductContainer");
+        for (const [key, item] of Object.entries(hoodies)) {
+          const card = `
+            <div class="card-container">
+              <a href="/item?name=${encodeURIComponent(item.name)}">
+                <div class="container">
+                  <img src="${item.image}" alt="${item.name}" />
+                  <div class="overlay">
+                    <div class="items"></div>
+                    <div class="items head">
+                      <p>${item.name}</p>
+                      <hr />
+                    </div>
+                    <div class="items price">
+                      <p class="old">${item.price.old}</p>
+                      <p class="new">${item.price.new}</p>
+                    </div>
+                    <div class="items cart">
+                      <i class="fa fa-shopping-cart"></i>
+                      <span>ADD TO CART</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          `;
+          container.innerHTML += card;
+        }
+      }
+
+      generatehoodiesCards();
     </script>
   </body>
 </html>
